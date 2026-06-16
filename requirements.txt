@@ -1,0 +1,6 @@
+streamlit
+gitpython
+fastapi
+uvicorn
+tree-sitter
+ollama

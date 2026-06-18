@@ -1,0 +1,158 @@
+[
+    {
+        "repo": "https://github.com/OWASP/WebGoat",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-17 13:26:34.061804"
+    },
+    {
+        "repo": "https://github.com/PyCQA/bandit",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-17 13:27:20.323877"
+    },
+    {
+        "repo": "https://github.com/OWASP/WebGoat",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-17 13:34:46.842875"
+    },
+    {
+        "repo": "https://github.com/PyCQA/bandit",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-17 13:35:00.042722"
+    },
+    {
+        "repo": "https://github.com/OWASP/NodeGoat",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-17 13:36:04.344306"
+    },
+    {
+        "repo": "https://github.com/OWASP/NodeGoat",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-17 13:42:18.421844"
+    },
+    {
+        "repo": "https://github.com/OWASP/WebGoat",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-17 13:47:02.433027"
+    },
+    {
+        "repo": "https://github.com/OWASP/WebGoat",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-17 13:47:34.547705"
+    },
+    {
+        "repo": "https://github.com/OWASP/WebGoat",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-17 13:52:27.699625"
+    },
+    {
+        "repo": "https://github.com/PyCQA/bandit",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 07:47:52.959665"
+    },
+    {
+        "repo": "https://github.com/WebGoat/WebGoat",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 07:53:52.069088"
+    },
+    {
+        "repo": "https://github.com/PyCQA/bandit",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 08:03:54.544208"
+    },
+    {
+        "repo": "https://github.com/PyCQA/bandit",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 08:05:30.353249"
+    },
+    {
+        "repo": "https://github.com/PyCQA/bandit",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 08:07:41.139183"
+    },
+    {
+        "repo": "https://github.com/PyCQA/bandit",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 08:12:27.431515"
+    },
+    {
+        "repo": "https://github.com/PyCQA/bandit",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 08:30:17.903396"
+    },
+    {
+        "repo": "https://github.com/OWASP/WebGoat",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 08:59:19.890358"
+    },
+    {
+        "repo": "https://github.com/PyCQA/bandit",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 09:07:44.163247"
+    },
+    {
+        "repo": "https://github.com/PyCQA/bandit",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 09:14:54.376972"
+    },
+    {
+        "repo": "https://github.com/PyCQA/bandit",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 09:38:41.214357"
+    },
+    {
+        "repo": "https://github.com/OWASP/WebGoat",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 09:55:59.585222"
+    },
+    {
+        "repo": "https://github.com/OWASP/NodeGoat",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 10:31:50.032443"
+    },
+    {
+        "repo": "https://github.com/OWASP/NodeGoat",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 10:32:27.698998"
+    },
+    {
+        "repo": "https://github.com/OWASP/WebGoat",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 10:38:32.743757"
+    },
+    {
+        "repo": "https://github.com/OWASP/WebGoat",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 10:44:18.926932"
+    },
+    {
+        "repo": "https://github.com/OWASP/WebGoat",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 10:49:18.115753"
+    }
+]

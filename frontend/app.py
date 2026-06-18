@@ -39,6 +39,71 @@ from backend.risk_score import calculate_risk_score
 #PDF
 from backend.pdf_report import generate_pdf_report
 
+from backend.scan_history import (
+    save_scan,
+    load_history
+)
+
+from backend.repository_comparison import (
+    compare_repositories
+)
+
+from backend.dashboard_metrics import (
+    calculate_dashboard_metrics
+)
+
+from backend.language_detector import (
+    detect_language
+)
+
+from backend.reasoning_agent import (
+    select_relevant_files
+)
+
+from backend.snippet_extractor import (
+    extract_relevant_snippets
+)
+
+from backend.ai_reasoning_agent import (
+    select_relevant_files_ai
+)
+
+from backend.function_extractor import (
+    extract_functions
+)
+
+from backend.dependency_tracer import (
+    trace_dependencies
+)
+
+from backend.dependency_detector import (
+    detect_dependencies
+)
+
+from backend.logging_detector import (
+    detect_logging
+)
+
+from backend.html_report import (
+    generate_html_report
+)
+
+from backend.tool_runner import (
+    run_tool
+)
+
+from backend.repository_indexer import (
+    build_repository_index
+)
+
+from backend.chunk_generator import (
+    generate_chunks
+)
+
+from backend.chunk_reviewer import (
+    review_chunk
+)
+
 st.set_page_config(
     page_title="AI SSDLC Review Agent",
     layout="wide"
@@ -56,7 +121,9 @@ review_type = st.selectbox(
         "Input Validation",
         "Secrets Detection",
         "Authentication Review",
-        "Authorization Review"
+        "Authorization Review",
+        "Dependency Security",
+        "Logging & Monitoring"
     ]
 )
 
@@ -78,15 +145,96 @@ if st.button("Scan Repository"):
                 repo_url
             )
 
-            files = discover_files(
+            repository_index = build_repository_index(
                 repo_path
             )
 
+            tool_results = run_tool(
+                review_type,
+                repo_path
+            )
+            
+            st.header(
+               "🛠️ Plugin Architecture Test"
+            )
+
+            st.write(
+                f"Tool Results: {len(tool_results)}"
+            )
+            language_info = detect_language(
+               repo_path
+            )
+
+            relevant_files = select_relevant_files(
+                repo_path,
+                review_type
+            )
+            snippets = extract_relevant_snippets(
+                relevant_files
+            )
+            chunks = generate_chunks(
+                snippets
+            )
+            chunk_reviews = []
+
+            for chunk in chunks[:3]:
+
+                review = review_chunk(
+                    chunk["chunk"]
+                )
+
+                chunk_reviews.append(
+                     review
+                )
+            all_functions = []
+
+            for file_path in relevant_files:
+
+                funcs = extract_functions(
+                    file_path
+                )
+
+                all_functions.extend(
+                    funcs
+                )
+            files = discover_files(
+                repo_path
+            )
+            file_names = [
+                str(f)
+                for f in files
+            ]
+            ai_reasoning = select_relevant_files_ai(
+               file_names,
+               review_type
+            )
             ast_results = analyze_python_ast(
                 repo_path
             )
             java_ast_results = analyze_java(
                 repo_path
+            )
+            st.header(
+                "🧠 Reasoning Agent"
+            )
+
+            st.metric(
+                "Relevant Files Selected",
+                len(relevant_files)
+            )
+
+            with st.expander(
+                 "View Relevant Files"
+            ):
+                 st.write(
+                    relevant_files
+                )
+            st.subheader(
+                "AI File Selection"
+            )
+
+            st.code(
+                ai_reasoning
             )
         # ==================================
         # INPUT VALIDATION REVIEW
@@ -118,6 +266,11 @@ if st.button("Scan Repository"):
             risk_score = calculate_risk_score(
                 findings
             )
+            save_scan(
+                repo_url,
+                review_type,
+                risk_score
+            )
             summary = generate_summary(
                 findings,
                 len(sources),
@@ -131,8 +284,96 @@ if st.button("Scan Repository"):
                 risk_score,
                 metrics
             )
+            html_path = generate_html_report(
+                "report.html",
+                summary,
+                findings,
+                risk_score
+            )
             st.success(
                 "Input Validation Review Complete"
+            )
+            st.header(
+               "✂️ Extracted Snippets"
+            )
+
+            for snippet in snippets[:5]:
+
+                with st.expander(
+                   snippet["file"]
+                ):
+
+                   st.code(
+                      snippet["snippet"]
+                    )
+            st.header(
+                 "🧩 Chunk Generator"
+                )
+
+            st.metric(
+                 "Chunks Generated",
+                 len(chunks)
+                )
+
+            for chunk in chunks[:5]:
+
+                with st.expander(
+                     chunk["file"]
+                ):
+
+                     st.code(
+                          chunk["chunk"]
+                    )
+            st.header(
+                "🤖 AI Chunk Reviews"
+            )
+
+            for review in chunk_reviews:
+
+                 st.write(
+                 review
+                )
+
+                 st.divider()
+            st.header(
+                "⚙️ Extracted Functions"
+            )
+
+            st.write(
+                all_functions[:50]
+            )
+            all_dependencies = []
+
+            for file_path in relevant_files:
+
+                deps = trace_dependencies(
+                   file_path
+                )
+
+                all_dependencies.extend(
+                    deps
+                )
+            st.header(
+                "🔗 Function Dependencies"
+            )
+
+            st.write(
+                all_dependencies[:50]
+            )
+            st.header(
+                "🖥 Repository Information"
+            )
+
+            c1, c2 = st.columns(2)
+
+            c1.metric(
+                "Language",
+                language_info["language"]
+            )
+
+            c2.metric(
+               "Framework",
+               "Unknown"
             )
             st.header(
                 "AI Executive Summary"
@@ -155,10 +396,66 @@ if st.button("Scan Repository"):
                     file_name="AI_SSDLC_Report.pdf",
                     mime="application/pdf"
             )
+            with open(
+               html_path,
+               "rb"
+            ) as html_file:
+
+                st.download_button(
+                    "🌐 Download HTML Report",
+                    html_file,
+                    file_name="AI_SSDLC_Report.html",
+                    mime="text/html"
+                )
             st.metric(
                 "Repository Risk Score",
                 f"{risk_score}/100"
-           )
+           )    
+            st.header(
+                "🖥️ Repository Profile"
+            )
+
+            col1, col2 = st.columns(2)
+
+            col1.metric(
+                "Primary Language",
+                language_info["language"]
+            )
+
+            col2.metric(
+               "Source Files",
+               len(files)
+            )
+
+            st.json(
+               language_info["counts"]
+            )
+            st.header(
+               "📚 Repository Index"
+            )
+
+            col1, col2, col3, col4 = st.columns(4)
+
+            col1.metric(
+                "Python",
+                repository_index["python_files"]
+            )
+
+            col2.metric(
+                "Java",
+                repository_index["java_files"]
+            )
+
+            col3.metric(
+                "JavaScript",
+                repository_index["js_files"]
+            )
+
+            col4.metric(
+            
+                "TypeScript",
+                repository_index["ts_files"]
+            )
             st.header(
                 "Repository Summary"
             )
@@ -315,7 +612,93 @@ if st.button("Scan Repository"):
                     st.write(
                         review
                     )
+            st.header(
+                "📈 Scan History"
+            )
 
+            history = load_history()
+
+            if history:
+
+                st.dataframe(
+                history
+            )
+
+            else:
+
+                st.info(
+                "No scan history available."
+            )
+            st.header(
+                "⚖️ Repository Comparison"
+            )
+
+            comparison = compare_repositories(
+                history
+            )
+
+            if comparison:
+
+                c1, c2 = st.columns(2)
+
+                c1.metric(
+                    comparison["previous_repo"],
+                    comparison["previous_score"]
+                )
+
+                c2.metric(
+                   comparison["latest_repo"],
+                   comparison["latest_score"]
+                )
+
+                st.metric(
+                   "Risk Difference",
+                   comparison["difference"]
+                )
+
+            else:
+
+                st.info(
+                    "Scan at least two repositories to compare."
+                )
+            
+            st.header(
+              "📊 Manager Dashboard"
+            )
+
+            dashboard = calculate_dashboard_metrics(
+              history
+            )
+
+            if dashboard:
+
+              d1, d2, d3, d4 = st.columns(4)
+
+              d1.metric(
+                  "Repositories",
+                  dashboard["total_repositories"]
+              )
+
+              d2.metric(
+                  "Average Risk",
+                  dashboard["average_risk"]
+              )
+
+              d3.metric(
+                  "Highest Risk",
+                  dashboard["highest_score"]
+             )
+
+              d4.metric(
+                  "Latest Scan",
+                  dashboard["latest_repo"]
+             )
+
+            else:
+
+              st.info(
+                  "No dashboard data available."
+             )
         # ==================================
         # SECRETS DETECTION
         # ==================================
@@ -554,3 +937,114 @@ if st.button("Scan Repository"):
                         st.code(
                             finding["code"]
                         )
+        #==================================
+        # DEPENDENCY SECURITY REVIEW
+        #==================================
+        
+        elif review_type == "Dependency Security":
+
+            audit_findings = dependency_security_review(
+              repo_path
+            )
+
+            st.header(
+                "📦 npm Audit Findings"
+            )
+
+            for finding in audit_findings:
+
+                st.write(
+                    finding
+            )
+            dependency_findings = detect_dependencies(
+                repo_path
+            )
+
+            st.success(
+                "Dependency Security Review Complete"
+            )
+
+            st.header(
+                "Dependency Summary"
+            )
+
+            col1, col2 = st.columns(2)
+
+            col1.metric(
+                "Files",
+                len(files)
+            )
+
+            col2.metric(
+                "Dependency Files Found",
+                len(dependency_findings)
+            )
+
+            st.header(
+                "Dependency Findings"
+            )
+
+            if len(dependency_findings) == 0:
+
+                st.info(
+                    "No dependency files found."
+                )
+
+            else:
+
+                for finding in dependency_findings[:20]:
+
+                    with st.expander(
+                        finding["file"]
+                    ):
+
+                        st.write(
+                            f"Issue: {finding['issue']}"
+                        )
+
+                        st.code(
+                            finding["content"]
+                        )
+        #==================================
+        # LOGGING & MONITORING REVIEW
+        #==================================
+        elif review_type == "Logging & Monitoring":
+
+            logs = detect_logging(
+                repo_path
+            )
+
+            st.success(
+                "Logging & Monitoring Review Complete"
+            )
+
+            st.metric(
+                "Logging Events",
+                len(logs)
+            )
+
+            if logs:
+
+                for log in logs[:20]:
+
+                    with st.expander(
+                        log["pattern"]
+                    ):
+
+                        st.write(
+                            f"File: {log['file']}"
+                        )
+
+                        st.write(
+                            f"Line: {log['line']}"
+                        )
+
+                        st.code(
+                            log["code"]
+                        )
+
+            else:
+
+                st.info(
+                    "No logging controls detected."
+                )

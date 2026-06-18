@@ -1,5 +1,5 @@
 from backend.snippet_extractor import (
-    extract_snippet
+    extract_snippets
 )
 from backend.risk_engine import (
     calculate_severity
@@ -21,7 +21,7 @@ def generate_findings(
             len(sinks)
         )
 
-        snippet = extract_snippet(
+        snippet = extract_snippets(
             source["file"],
             source["line"]
         )

@@ -280,5 +280,35 @@
         "review_type": "Input Validation",
         "risk_score": 100,
         "timestamp": "2026-06-18 15:53:43.384739"
+    },
+    {
+        "repo": "https://github.com/PyCQA/bandit",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 16:57:01.101195"
+    },
+    {
+        "repo": "https://github.com/WebGoat/WebGoat",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 17:04:00.599502"
+    },
+    {
+        "repo": "https://github.com/spring-projects/spring-security-samples",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 17:07:58.979523"
+    },
+    {
+        "repo": "https://github.com/spring-projects/spring-security-samples",
+        "review_type": "Input Validation",
+        "risk_score": 70,
+        "timestamp": "2026-06-18 17:09:07.376242"
+    },
+    {
+        "repo": "https://github.com/jerryhoff/WebGoat.NET.git",
+        "review_type": "Input Validation",
+        "risk_score": 0,
+        "timestamp": "2026-06-18 17:36:39.670797"
     }
 ]

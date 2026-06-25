@@ -1,5 +1,14 @@
-```
-# Python
+```gitignore
+# Logs and temp files
+*.log
+*.tmp
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Dependencies
 __pycache__/
 *.pyc
 *.pyo
@@ -8,29 +17,40 @@ __pycache__/
 # Dependencies
 venv/
 .venv/
-.env
-.env.local
-.env.*
+.env/
+.venv.bak/
+pip-log.txt
+pip-selfcheck.json
 
-# Logs and temp files
-*.log
-*.tmp
+# Build artifacts
+build/
+dist/
+*.egg
+*.egg-info/
+*.so
+*.dylib
+*.dll
+*.exe
+*.o
+*.obj
+*.out
+
+# Testing
+.coverage
+coverage/
+htmlcov/
+.nyc_output/
+.mypy_cache/
+.pytest_cache/
+.hypothesis/
 
 # Editors
 .vscode/
 .idea/
+*.swp
+*.swo
 
-# Coverage
-.coverage
-coverage/
-htmlcov/
-
-# Testing
-.pytest_cache/
-.mypy_cache/
-
-# Distribution / packaging
-dist/
-build/
-*.egg-info/
+# OS
+.DS_Store
+Thumbs.db
 ```
